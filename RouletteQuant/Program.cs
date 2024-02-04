@@ -1,6 +1,6 @@
 ﻿using RouletteQuant;
 
-int maxSimulatedRolls = 216;
+int maxSimulatedRolls = 500;
 int rollCount = 3;
 int initialCapital = 2500;
 int betSize = 100;
@@ -25,9 +25,9 @@ while (rollCount <= maxSimulatedRolls)
 	rouletteResults.Add(currentRoll);
 }
 
+// The math is off somewhere..
 void FindWinner(int rollCount, Bet bet, int numBets, RouletteResult currentRoll)
 {
-	//Todo, capital mgmt
 	if (numBets == 0)
 	{
 		Console.WriteLine($"Did not place bet for spin number: {rollCount}");
@@ -36,12 +36,40 @@ void FindWinner(int rollCount, Bet bet, int numBets, RouletteResult currentRoll)
 	{
 		if (RouletteDealer.IsWinnerSingleBet(currentRoll, bet))
 		{
-			player.CurrentCapital += player.BetSize;
-			Console.WriteLine($"Won a single bet on roll: {rollCount}");
+			// If we lost the previous bet, but now won, we exit the martingale mode and calculate the winnings accordingly.
+			if (player.Stats.LostPreviousBet)
+			{
+				player.CurrentCapital += player.BetSize * (int)Math.Pow(2, player.Stats.LossInARowCounter);
+			}
+			// We hit on the first time, just add the bet winnings to the capital.
+			else
+			{
+				player.CurrentCapital += player.BetSize;
+			}
+
+			player.Stats.LostPreviousBet = false;
+			player.MartingaleMode = false;
+			Console.WriteLine($"Won a single bet on roll: {rollCount}, Losses in a row: {player.Stats.LossInARowCounter}");
+			player.Stats.LossInARowCounter = 0;
 		}
 		else
 		{
-			player.CurrentCapital -= player.BetSize;
+			player.Stats.LostPreviousBet = true;
+			player.Stats.LossInARowCounter += 1;
+			
+			// Since we lost, we are entering or still remain in MaringaleMode of betting.
+			player.MartingaleMode = true;
+
+			// The first loss is just the bet size.
+			if (FirstLoss(player))
+			{
+				player.CurrentCapital -= player.BetSize;
+			}
+			// We are on the subsequent losses, then its expontential loss
+			else
+			{
+		  		player.CurrentCapital -= player.BetSize * (int)Math.Pow(2, player.Stats.LossInARowCounter);
+			}
 			Console.WriteLine($"Lost a single bet on roll: {rollCount}");
 		}
 	}
@@ -87,4 +115,9 @@ void FindWinner(int rollCount, Bet bet, int numBets, RouletteResult currentRoll)
 				break;
 		}
 	}
+}
+
+static bool FirstLoss(RoulettePlayer player)
+{
+	return player.Stats.LossInARowCounter == 1;
 }

@@ -2,12 +2,20 @@
 {
 	public class RoulettePlayer
 	{
-        public PlayerStats PlayerStats { get; set; }
-		public int CurrentCapital = 2500;
-		public int InitialCapital = 2500;
+		public PlayerStats Stats;
+		public int CurrentCapital = 6400;
+		public int InitialCapital = 6400;
 		public int BetSize = 100;
+		public bool MartingaleMode = false;
+		private Bet _previousBet;
 
-		public RolledResults GetPotentialBetPatterns(List<RouletteResult> results)
+        public RoulettePlayer()
+        {
+			_previousBet = new Bet();
+			Stats = new PlayerStats();    
+        }
+
+        public RolledResults GetPotentialBetPatterns(List<RouletteResult> results)
 		{
 			List<RouletteResult> lastThree = results.Skip(Math.Max(0, results.Count - 3)).ToList();
 			return AnalyzePatterns(lastThree);
@@ -15,15 +23,27 @@
 
 		public Bet DetermineNextBet(RolledResults patterns)
 		{
-			return new Bet
+			if (MartingaleMode)
 			{
-				OnBlack = patterns.LastThreeBlack,
-				OnRed = patterns.LastThreeRed,
-				OnEven = patterns.LastThreeEven,
-				OnOdd = patterns.LastThreeOdd,
-				OnHigh = patterns.LastThreeHigh,
-				OnLow = patterns.LastThreeLow,
-			};
+				return _previousBet;
+			}
+			else
+			{
+				Bet betToMake = new Bet
+				{
+					OnBlack = patterns.LastThreeBlack,
+					OnRed = patterns.LastThreeRed,
+					OnEven = patterns.LastThreeEven,
+					OnOdd = patterns.LastThreeOdd,
+					OnHigh = patterns.LastThreeHigh,
+					OnLow = patterns.LastThreeLow,
+				};
+
+				// Keep track as the previous bet
+				_previousBet = betToMake;
+
+				return betToMake;
+			} 
 		}
 
 		private RolledResults AnalyzePatterns(List<RouletteResult> lastThree)
