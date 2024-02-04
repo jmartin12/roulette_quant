@@ -1,0 +1,14 @@
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\bin\Debug\net8.0\RouletteQuant.exe
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\bin\Debug\net8.0\RouletteQuant.deps.json
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\bin\Debug\net8.0\RouletteQuant.runtimeconfig.json
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\bin\Debug\net8.0\RouletteQuant.dll
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\bin\Debug\net8.0\RouletteQuant.pdb
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.AssemblyInfoInputs.cache
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.AssemblyInfo.cs
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.csproj.CoreCompileInputs.cache
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.dll
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\refint\RouletteQuant.dll
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.pdb
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\RouletteQuant.genruntimeconfig.cache
+C:\Users\Jacob\source\repos\RouletteQuant\RouletteQuant\obj\Debug\net8.0\ref\RouletteQuant.dll
